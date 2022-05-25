@@ -4,6 +4,10 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { sanityClient, urlFor } from '../sanity'
 import { Post } from '../typings'
+import Link from 'next/link';
+import createImageUrlBuilder from '@sanity/image-url'
+import urlBuilder from '@sanity/image-url'
+
 
 
 interface Props {
@@ -20,7 +24,20 @@ const Home: NextPage = ({ posts }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>This is Homepage</h1>
+      <div>
+        {posts.map(post => (
+          <Link key={post._id} href={`/posts/${post.slug.current}`} >
+            <div>
+              <img src={
+                urlFor(post.mainImage).url()!
+              } alt="" />
+              <h1>{post.title}</h1>
+              <p>{post.description}</p>
+              <p>{post._createdAt}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   )
 }

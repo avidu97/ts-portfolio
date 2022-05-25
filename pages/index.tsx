@@ -2,8 +2,16 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { sanityClient, urlFor } from '../sanity'
+import { Post } from '../typings'
 
-const Home: NextPage = () => {
+
+interface Props {
+  posts: [Post];
+}
+
+const Home: NextPage = ({ posts }: Props) => {
+  console.log(posts);
   return (
     <div className={styles.container}>
       <Head>
@@ -16,5 +24,38 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+
+export const getServerSideProps = async () => {
+  const query = `*[_type == "post"] {
+    _id,
+    title,
+    description,
+    publishedAt,
+    body,
+    mainImage,
+    slug,
+  }`;
+
+  const posts = await sanityClient.fetch(query);
+
+  return {
+    props: {
+      posts,
+    }
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default Home

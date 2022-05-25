@@ -28,11 +28,13 @@ const Home: NextPage = ({ posts }: Props) => {
         {posts.map(post => (
           <Link key={post._id} href={`/posts/${post.slug.current}`} >
             <div>
-              <img src={
-                urlFor(post.mainImage).url()!
-              } alt="" />
-              <h1>{post.title}</h1>
-              <p>{post.description}</p>
+              <div>
+                <img src={
+                  urlFor(post.mainImage).url()!
+                } alt="" />
+              </div>
+              <div><h1>{post.title}</h1></div>
+              <div><p>{post.description}</p></div>
               <p>{post._createdAt}</p>
             </div>
           </Link>

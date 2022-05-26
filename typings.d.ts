@@ -1,6 +1,6 @@
 export interface Post {
     _id:string
-    _createdAt:string
+    _publishedAt:string
     title:string
     description: string
     mainImage: {

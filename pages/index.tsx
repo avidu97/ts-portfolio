@@ -15,7 +15,6 @@ interface Props {
 }
 
 const Home: NextPage = ({ posts }: Props) => {
-  console.log(posts);
   return (
     <div className={styles.container}>
       <Head>
@@ -35,7 +34,7 @@ const Home: NextPage = ({ posts }: Props) => {
               </div>
               <div><h1>{post.title}</h1></div>
               <div><p>{post.description}</p></div>
-              <p>{post._createdAt}</p>
+              <p>{post._publishedAt}</p>
             </div>
           </Link>
         ))}

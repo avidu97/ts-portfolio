@@ -1,13 +1,15 @@
 import React from 'react'
 import urlBuilder from '@sanity/image-url'
-import { sanityClient, urlFor } from '../sanity'
+import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typings'
+import { GetStaticProps } from 'next'
+
 
 interface Props {
   post: Post;
 }
 
-const Post = ({ post }: Props) => {
+function Post?({ post }: Props) => {
   console.log(post);
 
   return (
@@ -19,13 +21,11 @@ export default Post
 
 
 export const getStaticPaths = async () => {
-    cost query = `*[_type == "post"][0] {
+    const query = `*[_type == "post"]{
       _id,
-      title,
-     description,
-      mainImage,
-      slug,
-      body
+      slug {
+        current
+      }
     }`
 
       const post = await sanityClient.fetch(query);
@@ -43,29 +43,29 @@ export const getStaticPaths = async () => {
 };
 
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
-    const query = `*[_type == "post" && slug.current == $slug][0] {
-        _id,
-        title,
-       description,
-        mainImage,
-        slug,
-        body
-      }`
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    const query = `*[_type == "post"][0]{
+      _id,
+      title,
+      description,
+      mainImage,
+      body
+    }`
 
-      const post = await sanityClient.fetch(query, {
-          slug: params?.slug,
-      });
+    const post = await sanityClient.fetch(query, {
+        slug: params?.slug,
+    });
 
-      if (!post) {
-        return {
-          notFound: true
-        }
-      };
-
+    if (!post) {
       return {
-        props: {
-          post,
-        }
-      };
+        notFound: true
+      }
+    };
+
+    return {
+      props: {
+        post,
+      },
+      revalidate: 60,
+    };
 };

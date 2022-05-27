@@ -25,8 +25,8 @@ const Home: NextPage = ({ posts }: Props) => {
 
       <div>
         {posts.map(post => (
-          <Link key={post._id} href={`/posts/${post.slug.current}`} >
-            <div>
+          // <Link key={post._id} href={`/posts/${post.slug.current}`} >
+            <div key={post._id}>
               <div>
                 <img src={
                   urlFor(post.mainImage).url()!
@@ -36,7 +36,7 @@ const Home: NextPage = ({ posts }: Props) => {
               <div><p>{post.description}</p></div>
               <p>{post._publishedAt}</p>
             </div>
-          </Link>
+          // </Link>
         ))}
       </div>
     </div>

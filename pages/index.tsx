@@ -28,9 +28,7 @@ const Home: NextPage = ({ posts }: Props) => {
           // <Link key={post._id} href={`/posts/${post.slug.current}`} >
             <div key={post._id}>
               <div>
-                <img src={
-                  urlFor(post.mainImage).url()!
-                } alt="" />
+                <img src={urlFor(post.mainImage).url()!} alt="" />
               </div>
               <div><h1>{post.title}</h1></div>
               <div><p>{post.description}</p></div>

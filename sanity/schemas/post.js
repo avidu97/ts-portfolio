@@ -31,6 +31,25 @@ export default {
       },
     },
     {
+      name: 'dataPosted',
+      title: 'Date Posted',
+      type: 'date',
+    },
+    {
+      title: 'Tools',
+      name: 'tools',
+      type: 'array',
+      of: [{type: 'string'}],
+      options: {
+        layout: 'tags'
+      }
+    },
+    {
+      name: 'test',
+      title: 'Test',
+      type: 'string',
+    },
+    {
       name: 'publishedAt',
       title: 'Published at',
       type: 'date',
